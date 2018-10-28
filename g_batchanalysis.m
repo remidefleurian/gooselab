@@ -15,39 +15,40 @@ add2log(sprintf('%s, path: %s, frame accuracy: %4.0f\n', datestr(now,0), pathnam
 
 
 for i = 1:length(dirL)
-    try
-        %open file
-        filename = dirL(i).name;
-        disp([datestr(now,13),' Analyzing: ',filename]);
-        g_open(1, filename, pathname)
-        
-        %analyze file
-        for iFrame = 1:frame_acc:goose.video.nFrames  %goose.video.nFrames/nFrames
-            pixmap = read(goose.video.aviobj, goose.current.iFrame);
-            pic = reshape(pixmap/255, [goose.video.Height, goose.video.Width, 3]);
-            goose.current.iFrame = iFrame;
-            four(pic);
-        end
+	if ~strcmp(dirL(i).name(1),'.')
+    	try
+        	%open file
+        	filename = dirL(i).name;
+        	disp([datestr(now,13),' Analyzing: ',filename]);
+        	g_open(1, filename, pathname)
+        	
+        	%analyze file
+        	for iFrame = 1:frame_acc:goose.video.nFrames  %goose.video.nFrames/nFrames
+        	    pixmap = read(goose.video.aviobj, goose.current.iFrame);
+        	    pic = reshape(pixmap/255, [goose.video.Height, goose.video.Width, 3]);
+        	    goose.current.iFrame = iFrame;
+        	    four(pic);
+        	end
 
-        %get marker
-        g_getmarker;
+        	%get marker
+        	g_getmarker;
 
-        %remove LED artifact
-        remove_LEDartifact
+        	%remove LED artifact
+        	remove_LEDartifact
 
-        %save project file
-        g_save(pathname, filename(1:end-4));
+        	%save project file
+        	g_save(pathname, filename(1:end-4));
 
-        %save overview to jpg
-        analysis_overview;
+        	%save overview to jpg
+        	analysis_overview;
 
-        %give feedback
-        add2log(sprintf('%s %s: \tmean = %3.2f, max = %3.2f', datestr(now,13), filename, mean(goose.analysis.amp(logical(goose.analysis.framedone))), max(goose.analysis.amp)),0);
+        	%give feedback
+        	add2log(sprintf('%s %s: \tmean = %3.2f, max = %3.2f', datestr(now,13), filename, mean(goose.analysis.amp(logical(goose.analysis.framedone))), max(goose.analysis.amp)),0);
 
-     catch
-         add2log(sprintf('%s Error at %s !!', datestr(now,13), filename),1)
-     end
-
+     	catch
+         	add2log(sprintf('%s Error at %s !!', datestr(now,13), filename),1)
+     	end
+    end
 end
 
 
