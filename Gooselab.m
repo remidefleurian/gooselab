@@ -1,4 +1,4 @@
-function Gooselab(pathname, frame_acc)
+function Gooselab(batch)
 
 %Gooselab(pathname, frame_acc)
 %
@@ -74,7 +74,6 @@ goose.version.videoext = {'.mkv','.avi','.mov','.mj2','.ogg','.ogv','.mp4','.mpg
 
 
 
-if nargin == 0
     set(0,'DefaultUicontrolFontUnits','normalized','DefaultUicontrolUnits','normalized');
     set(0,'DefaultTextFontSize',.5);
 
@@ -176,12 +175,6 @@ if nargin == 0
 	drawnow;
     set(get(handle(gcf),'JavaFrame'), 'Maximized',true); % Maximize the window, should work with Matlab >R2008a, tested with Matlab <R2012b
 
-else %batch mode
-
-    if nargin < 2
-        frame_acc = 1;
-    end
-
-    g_batchanalysis(pathname, frame_acc);    
-    
+if nargin == 1
+    g_batchexport(); 
 end
