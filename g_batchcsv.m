@@ -1,8 +1,7 @@
-function g_batchexport
+function g_batchcsv(path_in, path_out)
 global goose
 
-    pathname = '/Users/remi/Desktop/todo/';
-    dirL = dir(pathname);
+    dirL = dir(path_in);
  
     for i = 1:length(dirL)
         if ~strcmp(dirL(i).name(1),'.')
@@ -10,13 +9,13 @@ global goose
             filename = dirL(i).name;            
             
             try
-                g_open(1, filename, pathname)
+                g_open(1, filename, path_in)
                 for frame = 1:goose.video.nFrames  %goose.video.nFrames/nFrames
                     analyze_frame(frame)
                 end        
                 idx = find(goose.analysis.framedone);
                 M = [idx; goose.analysis.amp(idx)];
-                csvwrite(fullfile([pathname(1:end-5),'done/'], [filename(1:end-4),'.csv']), M');
+                csvwrite(fullfile(path_out, [filename(1:end-4),'.csv']), M');
                 disp(sprintf('%s - done - %s', datestr(now, 13), filename));
 
             catch

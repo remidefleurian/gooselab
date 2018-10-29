@@ -1,14 +1,18 @@
-function Gooselab(batch)
+function Gooselab(path_in, path_out)
 
-%Gooselab(pathname, frame_acc)
-%
+if path_in == 1
+    path_in  = '/Users/remi/Desktop/todo/';
+    path_out = '/Users/remi/Desktop/done/';
+end
+
 % Gooselab analyzes a video of human skin for the intensity of goosebumps. Type Gooselab to start the GUI.
-% You can also use the command line functionality and analyze all videos located in one directory
-% For each video you receive feedback on the goose-amp mean and maximum
+% You can also use the command line functionality and analyze all videos located in one directory.
+% A csv is exported for each analyzed video in the specified output folder.
 %
-% pathname   analyze alle files in this directory (absolute dir)
-% frame_acc  accuracy, video is analyzed in steps of frame_acc frames.
-%            for frame_acc = 1 all frames are analyzed (default)
+% path_in   analyze all files in this directory (absolute dir)
+% path_out  export all csv files to this directory (absolute dir)
+%
+% Typing Gooselab(1) will default to the two folders specified at the top of this file.
 
 
 clear global goose
@@ -175,6 +179,6 @@ goose.version.videoext = {'.mkv','.avi','.mov','.mj2','.ogg','.ogv','.mp4','.mpg
 	drawnow;
     set(get(handle(gcf),'JavaFrame'), 'Maximized',true); % Maximize the window, should work with Matlab >R2008a, tested with Matlab <R2012b
 
-if nargin == 1
-    g_batchexport(); 
+if nargin > 0
+    g_batchcsv(path_in, path_out); 
 end
