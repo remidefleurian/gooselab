@@ -176,8 +176,12 @@ goose.version.videoext = {'.mkv','.avi','.mov','.mj2','.ogg','.ogv','.mp4','.mpg
 
 if nargin > 0
     if path_in == 1
-        path_in  = '/Users/remi/Desktop/todo/';
-        path_out = '/Users/remi/Desktop/done/';
+        path_in  = '/Users/remi/Google Drive/School/MAT/PhD/PhD - Notes/PhD - Study 1/Study 1 - Tests/pfcstudy/pfc-data/3-first-videos/cropped';
+        path_out = '/Users/remi/Google Drive/School/MAT/PhD/PhD - Notes/PhD - Study 1/Study 1 - Tests/pfcstudy/pfc-data/7-analysis/data/chills-first-lab';
+    end
+    if path_in == 2
+        path_in  = '/Users/remi/Google Drive/School/MAT/PhD/PhD - Notes/PhD - Study 1/Study 1 - Tests/pfcstudy/pfc-data/6-last-videos/cropped';
+        path_out = '/Users/remi/Google Drive/School/MAT/PhD/PhD - Notes/PhD - Study 1/Study 1 - Tests/pfcstudy/pfc-data/7-analysis/data/chills-last-lab';
     end
     g_batchcsv(path_in, path_out); 
 end
